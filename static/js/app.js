@@ -5,51 +5,25 @@ function buildMetadata(artist) {
   var metadataURL = `/artists/${artist}`;
   d3.json(metadataURL).then(function(data){
   console.log(data);
-  // var table = d3.select('#table').append('table');
-  // var row_headers = d3.keys(data[0]);
-  // var headers = table.append('thead').append('tr')
-	// 	                   .selectAll('th')
-	// 	                   .data(row_headers).enter()
-	// 	                   .append('th')
-	// 	                   .text(function (d) {
-  //                         return d;
-  //                       });
-  // var rows = table.append('tbody').selectAll('tr')
-  //                   .data(data).enter()
-  //                   .append('tr');
-  //       rows.selectAll('td')
-  //         .data(function (d) {
-  //           return titles.map(function (k) {
-  //             return { 'value': d[k], 'name': k};
-  //           });
-  //         }).enter()
-  //         .append('td')
-  //         .attr('data-th', function (d) {
-  //           return d.name;
-  //         })
-  //         .text(function (d) {
-  //           return d.value;
-  //         });
-  //     });
-  d3.select("tbody")
-      .selectAll("tr")
-      .data(data)
-      .enter()
-      .append("tr")
-      .html(function(d) {
-        return `<td>${d.pub_year}</td><td>${d.title}</td><td>${d.score}</td><td>${d.url}</td>`;
-      });
-	// table.html("");
-    // var table = d3.select("#artist-metadata");
+    var rows = d3.select("tbody")
+        .selectAll("tr")
+        .data(data);
+      
+    rows.exit().remove();
 
-    // // Use `.html("") to clear any existing metadata
-    // table.html("");
+    var trEnter = rows.enter()
+        .append("tr");
 
-    // // Use `Object.entries` to add each key and value pair to the panel
-    // // Hint: Inside the loop, you will need to use d3 to append new
-    // // tags for each key-value in the metadata.
-    // Object.entries(data).forEach(function([key,value]){
-    //   table.append("h6").text(`${key}:${value}`);
+    trEnter.html(function(d) {
+          return `<td>${d.pub_year}</td><td>${d.title}</td><td>${d.score}</td><td>${d.url}</td>`;
+        });
+
+    var td = rows.selectAll("td").data(function(d) { return d3.values(d); });
+
+    td.exit().remove();
+
+    td.enter().append("td");
+    td.text(function(d) { return d; });
     })
   };
 
@@ -80,7 +54,7 @@ function buildCharts(artist) {
         xaxis: {title: "Year"},
         yaxis: {title: "Review Score"}
       };
-      plotly.Plot("bubble", bubble_plot, bubble_layout);
+      plotly.newPlot("bubble", bubble_plot, bubble_layout);
 
     // @TODO: Build a Pie Chart
     d3.json(plotdataURL).then(function(data){
@@ -94,7 +68,7 @@ function buildCharts(artist) {
       var pie_layout = {
         margin: {t: 0, l: 0}
       };
-    plotly.Plot("pie", pie_plot, pie_layout);
+    plotly.newPlot("pie", pie_plot, pie_layout);
     });
   });
 };
