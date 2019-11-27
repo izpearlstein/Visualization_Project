@@ -80,7 +80,7 @@ function buildCharts(artist) {
         xaxis: {title: "Year"},
         yaxis: {title: "Review Score"}
       };
-      plotly.Plot("bubble", bubble_plot, bubble_layout);
+      Plotly.newPlot("bubble", bubble_plot, bubble_layout);
 
     // @TODO: Build a Pie Chart
     d3.json(plotdataURL).then(function(data){
@@ -94,7 +94,7 @@ function buildCharts(artist) {
       var pie_layout = {
         margin: {t: 0, l: 0}
       };
-    plotly.Plot("pie", pie_plot, pie_layout);
+  Plotly.newPlot("pie", pie_plot, pie_layout);
     });
   });
 };
