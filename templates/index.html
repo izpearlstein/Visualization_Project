@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Flask Plotlyjs Example</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
@@ -19,7 +20,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-12">
         <div class="well">
           <h5>SELECT Artist:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
@@ -28,7 +29,7 @@
                 <div class="col-md-12">
                     <table class="table table-striped">
                         <thead>
-                            <tr><th>Year</th><th>Album</th><th>Score</th><th>URL</th></tr>
+                            <tr><th>Year</th><th>Album</th><th>Review</th></tr>
                         </thead>
                         <tbody></tbody>
                     </table>
@@ -36,11 +37,9 @@
             </div>
         </div>
       </div>
-      <div class="col-md-5">
+      <div class="row">
+        <div class="col-md-12">
         <div id="pie"></div>
-      </div>
-      <div class="col-md-5">
-        <div id="gauge"></div>
       </div>
     </div>
   </div>
@@ -52,7 +51,6 @@
 
   <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
 </body>

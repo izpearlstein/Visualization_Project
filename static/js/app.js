@@ -15,7 +15,7 @@ function buildMetadata(artist) {
         .append("tr");
 
     trEnter.html(function(d) {
-          return `<td>${d.pub_year}</td><td>${d.title}</td><td>${d.score}</td><td>${d.url}</td>`;
+          return `<td>${d.pub_year}</td><td>${d.title}</td><td><a href=${d.url}>${d.url}</a></td>`;
         });
 
     var td = rows.selectAll("td").data(function(d) { return d3.values(d); });
@@ -35,7 +35,7 @@ function buildCharts(artist) {
     d3.json(plotdataURL).then(function(data){
       console.log(data);
       var albums = data.album;
-      var years = data.year;
+      var years = data.pub_year;
       var scores = data.score;
       var genres = data.genre;
 
@@ -54,7 +54,7 @@ function buildCharts(artist) {
         xaxis: {title: "Year"},
         yaxis: {title: "Review Score"}
       };
-      plotly.newPlot("bubble", bubble_plot, bubble_layout);
+      Plotly.newPlot("bubble", bubble_plot, bubble_layout);
 
     // @TODO: Build a Pie Chart
     d3.json(plotdataURL).then(function(data){
@@ -68,7 +68,7 @@ function buildCharts(artist) {
       var pie_layout = {
         margin: {t: 0, l: 0}
       };
-    plotly.newPlot("pie", pie_plot, pie_layout);
+    Plotly.newPlot("pie", pie_plot, pie_layout);
     });
   });
 };

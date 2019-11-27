@@ -85,7 +85,7 @@ def names():
 def artist_data(artist):
     """Return artist, album, pub_year, genre, score, url"""
 
-    stmt = db.session.query(Pitchfork.title, Pitchfork.pub_year, Pitchfork.score, Pitchfork.url).\
+    stmt = db.session.query(Pitchfork.pub_year, Pitchfork.title, Pitchfork.url).\
          filter(Pitchfork.artist == artist).statement
     artist_df = pd.read_sql_query(stmt, db.session.bind)
     data = artist_df.to_dict('records')
@@ -153,8 +153,8 @@ def reviews(artist):
     data = {
         "album": artist_df.title.values.tolist(),
         "score": artist_df.score.values.tolist(),
-        "pub_year": artist_df.pub_year.tolist(),
-        "genre": artist_df.genre.tolist()
+        "pub_year": artist_df.pub_year.values.tolist(),
+        "genre": artist_df.genre.values.tolist()
     }
     return jsonify(data)
 
