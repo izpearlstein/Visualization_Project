@@ -5,40 +5,40 @@ function buildMetadata(artist) {
   var metadataURL = `/artists/${artist}`;
   d3.json(metadataURL).then(function(data){
   console.log(data);
-  var table = d3.select('#table').append('table');
-  var row_headers = d3.keys(data[0]);
-  var headers = table.append('thead').append('tr')
-		                   .selectAll('th')
-		                   .data(row_headers).enter()
-		                   .append('th')
-		                   .text(function (d) {
-                          return d;
-                        });
-  var rows = table.append('tbody').selectAll('tr')
-                    .data(data).enter()
-                    .append('tr');
-        rows.selectAll('td')
-          .data(function (d) {
-            return titles.map(function (k) {
-              return { 'value': d[k], 'name': k};
-            });
-          }).enter()
-          .append('td')
-          .attr('data-th', function (d) {
-            return d.name;
-          })
-          .text(function (d) {
-            return d.value;
-          });
-      });
-  // d3.select("tbody")
-  //     .selectAll("tr")
-  //     .data(data)
-  //     .enter()
-  //     .append("tr")
-  //     .html(function(d) {
-  //       return `<td>${d.pub_year}</td><td>${d.title}</td><td>${d.score}</td><td>${d.url}</td>`;
+  // var table = d3.select('#table').append('table');
+  // var row_headers = d3.keys(data[0]);
+  // var headers = table.append('thead').append('tr')
+	// 	                   .selectAll('th')
+	// 	                   .data(row_headers).enter()
+	// 	                   .append('th')
+	// 	                   .text(function (d) {
+  //                         return d;
+  //                       });
+  // var rows = table.append('tbody').selectAll('tr')
+  //                   .data(data).enter()
+  //                   .append('tr');
+  //       rows.selectAll('td')
+  //         .data(function (d) {
+  //           return titles.map(function (k) {
+  //             return { 'value': d[k], 'name': k};
+  //           });
+  //         }).enter()
+  //         .append('td')
+  //         .attr('data-th', function (d) {
+  //           return d.name;
+  //         })
+  //         .text(function (d) {
+  //           return d.value;
+  //         });
   //     });
+  d3.select("tbody")
+      .selectAll("tr")
+      .data(data)
+      .enter()
+      .append("tr")
+      .html(function(d) {
+        return `<td>${d.pub_year}</td><td>${d.title}</td><td>${d.score}</td><td>${d.url}</td>`;
+      });
 	// table.html("");
     // var table = d3.select("#artist-metadata");
 
