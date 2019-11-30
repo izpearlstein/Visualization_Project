@@ -39,22 +39,56 @@ function buildCharts(artist) {
       var scores = data.score;
       var genres = data.genre;
 
-      var bubble_plot = {
-        x: years,
+      var album_year = albums.map(function(e, i) {
+        return [e, years[i]];
+      });
+      
+      var trace1 = {
+        x: albums,
         y: scores,
-        text: albums,
-        mode: `markers`,
+        type: 'bar',
+        text: years,
         marker: {
-          size: scores,
-          color: albums
+          color: 'rgb(142,124,195)'
         }
       };
-      var bubble_layout = {
-        title: "Album Scores By Year",
-        xaxis: {title: "Year"},
-        yaxis: {title: "Review Score"}
+      
+      var bar_plot = [trace1];
+      
+      var bar_layout = {
+        title: 'Album Scores By Artist',
+        font:{
+          family: 'Raleway, sans-serif'
+        },
+        showlegend: false,
+        xaxis: {
+          tickangle: -45
+        },
+        yaxis: {
+          zeroline: false,
+          gridwidth: 2
+        },
+        bargap :0.05
       };
-      Plotly.newPlot("bubble", bubble_plot, bubble_layout);
+      
+      Plotly.newPlot('bar', bar_plot, bar_layout);
+
+      // var bubble_plot = {
+      //   x: album_year,
+      //   y: scores,
+      //   text: album_year,
+      //   mode: `markers`,
+      //   marker: {
+      //     size: scores,
+      //     color: album_year
+      //   }
+      // };
+      // var bubble_layout = {
+      //   title: "Album Scores By Year",
+      //   xaxis: {title: "Year"},
+      //   yaxis: {title: "Review Score"}
+      // };
+      // Plotly.newPlot("bubble", bubble_plot, bubble_layout);
 
     // @TODO: Build a Pie Chart
     d3.json(plotdataURL).then(function(data){
