@@ -29,8 +29,6 @@ function buildMetadata(artist) {
 
 function buildCharts(artist) {
 
-  // @TODO: Use `d3.json` to fetch the artist data for the plots
-    // @TODO: Build a Bubble Chart using the artist data
     var plotdataURL = `/reviews/${artist}`;
     d3.json(plotdataURL).then(function(data){
       console.log(data);
@@ -39,10 +37,6 @@ function buildCharts(artist) {
       var scores = data.score;
       var genres = data.genre;
 
-      var album_year = albums.map(function(e, i) {
-        return [e, years[i]];
-      });
-      
       var trace1 = {
         x: albums,
         y: scores,
@@ -56,60 +50,70 @@ function buildCharts(artist) {
       var bar_plot = [trace1];
       
       var bar_layout = {
-        title: 'Album Scores By Artist',
+        title: 'Artist Album Scores',
         font:{
           family: 'Raleway, sans-serif'
         },
         showlegend: false,
         xaxis: {
-          tickangle: -45
+          title: "Album",
+          tickangle: 45,
+          automargin: true
         },
         yaxis: {
+          title: "Score",
           zeroline: false,
-          gridwidth: 2
+          gridwidth: 2,
+          automargin: true
         },
-        bargap :0.05
+        bargap: 0.5
       };
       
       Plotly.newPlot('bar', bar_plot, bar_layout);
 
-      // var bubble_plot = {
-      //   x: album_year,
-      //   y: scores,
-      //   text: album_year,
-      //   mode: `markers`,
-      //   marker: {
-      //     size: scores,
-      //     color: album_year
-      //   }
-      // };
-      // var bubble_layout = {
-      //   title: "Album Scores By Year",
-      //   xaxis: {title: "Year"},
-      //   yaxis: {title: "Review Score"}
-      // };
-      // Plotly.newPlot("bubble", bubble_plot, bubble_layout);
-
-    // @TODO: Build a Pie Chart
-    d3.json(plotdataURL).then(function(data){
-      console.log(data);
-      var pie_plot = [{
-        "labels": genres,
-        "values": scores,
-        "hovertext": albums,
-        "type": "pie"
-      }];
-      var pie_layout = {
-        margin: {t: 0, l: 0}
-      };
-    Plotly.newPlot("pie", pie_plot, pie_layout);
-    });
   });
+};
+
+function buildChartsGenre(genre) {
+
+  var plotdataURL = `/themes/${genre}`;
+  d3.json(plotdataURL).then(function(data){
+    console.log(data);
+    var years = data.pub_year;
+    var scores = data.score;
+    
+    var trace1 = {
+      x: years,
+      y: scores,
+      type: 'scatter'
+    };
+    
+    var line_plot = [trace1];
+    
+    var line_layout = {
+      title: 'Average Genre Scores By Year',
+      font:{
+        family: 'Raleway, sans-serif'
+      },
+      xaxis: {
+        title: "Year",
+        automargin: true
+      },
+      yaxis: {
+        title: "Score",
+        automargin: true
+      }
+    };
+    
+    Plotly.newPlot('line', line_plot, line_layout);
+
+});
 };
 
 function init() {
   // Grab a reference to the dropdown select element
   var selector = d3.select("#selDataset");
+  var selector_2 = d3.select("#selGenre");
 
   // Use the list of artist names to populate the select options
   d3.json("/artist_names").then((artistNames) => {
@@ -125,6 +129,19 @@ function init() {
     buildCharts(firstArtist);
     buildMetadata(firstArtist);
   });
+
+  // Use the list of genres to populate the select options
+  d3.json("/genres").then((genreNames) => {
+    genreNames.forEach((genre) => {
+      selector_2
+        .append("option")
+        .text(genre)
+        .property("value", genre);
+    });
+    // Use the first genre from the list to build the initial plots
+    const firstGenre = genreNames[0];
+    buildChartsGenre(firstGenre);
+  });
 }
 
 function optionChanged(newArtist) {
@@ -133,29 +150,10 @@ function optionChanged(newArtist) {
   buildMetadata(newArtist);
 }
 
+function optionChangedGenre(newGenre) {
+  // Fetch new data each time a new genre is selected
+  buildChartsGenre(newGenre);
+}
+
 // Initialize the dashboard
 init();
-
-
-// // Plot the default route once the page loads
-// var defaultURL = "/title";
-// d3.json(defaultURL).then(function(data) {
-//   var data = [data];
-//   var layout = { margin: { t: 30, b: 100 } };
-//   Plotly.plot("bar", data, layout);
-// });
-
-// // Update the plot with new data
-// function updatePlotly(newdata) {
-//   Plotly.restyle("bar", "x", [newdata.x]);
-//   Plotly.restyle("bar", "y", [newdata.y]);
-// }
-
-// // Get new data whenever the dropdown selection changes
-// function getData(route) {
-//   console.log(route);
-//   d3.json(`/${route}`).then(function(data) {
-//     console.log("newdata", data);
-//     updatePlotly(data);
-//   });
-// }

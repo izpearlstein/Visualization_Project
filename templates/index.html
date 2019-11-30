@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Flask Plotlyjs Example</title>
+  <title>Musician Dashboard</title>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
@@ -15,14 +15,14 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 jumbotron text-center">
-        <h1>Artist Pitchfork Ratings Dashboard</h1>
-        <p>Use the interactive charts below to explore the dataset</p>
+        <h1>Musician Ratings Dashboard</h1>
+        <p>Discover how well your favorite musicians have performed in the 21st century</p>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
         <div class="well">
-          <h5>SELECT Artist:</h5>
+          <h5>Select Artist:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
         <div class="row">
@@ -37,16 +37,28 @@
             </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-        <div id="pie"></div>
+  </div>
+  <div class="row">
+      <div class="col-md-12">
+        <div id="bar"></div>
+      </div>
+  <div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+              <div class="well">
+                <h5>Select Genre:</h5>
+                <select id="selGenre" onchange="optionChangedGenre(this.value)"></select>
+              </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="line"></div>
+      </div>
+    </div>
+    </div>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div id="bar"></div>
-    </div>
   </div>
 
   <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
