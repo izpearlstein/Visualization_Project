@@ -51,9 +51,6 @@ function buildCharts(artist) {
       
       var bar_layout = {
         title: 'Artist Album Scores',
-        font:{
-          family: 'Raleway, sans-serif'
-        },
         showlegend: false,
         xaxis: {
           title: "Album",
