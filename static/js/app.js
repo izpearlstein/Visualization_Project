@@ -37,11 +37,15 @@ function buildCharts(artist) {
       var scores = data.score;
       var genres = data.genre;
 
+      var year_genre = years.map(function(e, i) {
+        return [e, genres[i]];
+      });
+
       var trace1 = {
         x: albums,
         y: scores,
         type: 'bar',
-        text: years,
+        text: year_genre,
         marker: {
           color: 'rgb(142,124,195)'
         }
@@ -59,6 +63,7 @@ function buildCharts(artist) {
         },
         yaxis: {
           title: "Score",
+          range: [0, 10],
           zeroline: false,
           gridwidth: 2,
           automargin: true
@@ -98,6 +103,7 @@ function buildChartsGenre(genre) {
       },
       yaxis: {
         title: "Score",
+        range: [0, 10],
         automargin: true
       }
     };

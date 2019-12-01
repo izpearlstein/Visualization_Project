@@ -76,7 +76,8 @@ def genres():
     """Return a list of genres."""
 
     # Use Pandas to perform the sql query
-    stmt = db.session.query(Pitchfork.genre).distinct().filter(Pitchfork.genre != None).order_by(Pitchfork.genre).statement
+    stmt = db.session.query(Pitchfork.genre).distinct().\
+        filter(Pitchfork.genre != None).filter(Pitchfork.genre != 'folk/country').filter(Pitchfork.genre != 'pop/r&b').order_by(Pitchfork.genre).statement
     df = pd.read_sql_query(stmt, db.session.bind)
 
     # Return a list of the column names (artist names)
