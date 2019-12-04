@@ -4,14 +4,9 @@
 
 ## Visualize Me, Captain!
 
-### Requirements:
-- Your visualization must include a Python Flask–powered RESTful API, HTML/CSS, JavaScript, and at least one database (SQL, MongoDB, SQLite, etc.). 
-- Your project should fall into one of the below four tracks: 
-  - A custom “creative” D3.js project (i.e., a nonstandard graph or chart)
-  - A combination of web scraping and Leaflet or Plotly
-  - A dashboard page with multiple charts that update from the same data
-  - A “thick” server that performs multiple manipulations on data in a database prior to visualization (must be approved)
-- Your project should include at least one JS library that we did not cover.
-- Your project must be powered by a data set with at least 100 records.
-- Your project must include some level of user-driven interaction (e.g., menus, dropdowns, textboxes).
-- Your final visualization should ideally include at least three views. 
+### How to navigate repo:
+1. The database.sqlite file contains the underlying Pitchfork data that our web app uses
+2. The Pitchfork SQLite notebook was used to create a merged table and to clean the data up
+3. The templates folder contains the HTML used for our web app
+4. The static folder contains the Javascript used to manipulate and create the plots on web app
+5. The app.py file uses Flask and can be executed to view the finished dashboard
