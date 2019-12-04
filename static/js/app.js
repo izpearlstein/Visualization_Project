@@ -68,7 +68,6 @@ function buildCharts(artist) {
       };
       
       Plotly.newPlot('bar', bar_plot, bar_layout);
-
   });
 };
 
