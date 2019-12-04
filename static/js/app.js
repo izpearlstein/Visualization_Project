@@ -15,7 +15,7 @@ function buildMetadata(artist) {
         .append("tr");
 
     trEnter.html(function(d) {
-          return `<td>${d.pub_year}</td><td>${d.title}</td><td><a href=${d.url}>${d.url}</a></td>`;
+          return `<td>${d.pub_year}</td><td>${d.title}</td><td>${d.url}</td>`;
         });
 
     var td = rows.selectAll("td").data(function(d) { return d3.values(d); });
@@ -37,15 +37,11 @@ function buildCharts(artist) {
       var scores = data.score;
       var genres = data.genre;
 
-      var year_genre = years.map(function(e, i) {
-        return [e, genres[i]];
-      });
-
       var trace1 = {
         x: albums,
         y: scores,
         type: 'bar',
-        text: year_genre,
+        text: genres,
         marker: {
           color: 'rgb(142,124,195)'
         }
